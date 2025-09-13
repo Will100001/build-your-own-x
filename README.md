@@ -30,6 +30,7 @@ It's a great way to learn.
 * [Shell](#build-your-own-shell)
 * [Template Engine](#build-your-own-template-engine)
 * [Text Editor](#build-your-own-text-editor)
+* [VNC (Virtual Network Computing)](#build-your-own-vnc-virtual-network-computing)
 * [Visual Recognition System](#build-your-own-visual-recognition-system)
 * [Voxel Engine](#build-your-own-voxel-engine)
 * [Web Browser](#build-your-own-web-browser)
@@ -378,6 +379,12 @@ It's a great way to learn.
 * [**Python**: _Create a Simple Python Text Editor!_](http://www.instructables.com/id/Create-a-Simple-Python-Text-Editor/)
 * [**Ruby**: _Build a Collaborative Text Editor Using Rails_](https://blog.aha.io/text-editor/)
 * [**Rust**: _Hecto: Build your own text editor in Rust_ ](https://www.flenker.blog/hecto/)
+
+#### Build your own `VNC (Virtual Network Computing)`
+
+* [**C/C++**: _Building a VNC Server from Scratch_](https://github.com/Will100001/build-your-own-x/tree/main/vnc)
+* [**Python**: _Simple VNC Implementation Tutorial_](https://github.com/Will100001/build-your-own-x/tree/main/vnc)
+* [**Cross-Platform**: _Complete VNC Solution with GUI_](https://github.com/Will100001/build-your-own-x/tree/main/vnc)
 
 #### Build your own `Visual Recognition System`
 
