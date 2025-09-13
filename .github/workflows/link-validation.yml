@@ -1,0 +1,202 @@
+name: Link Validation
+
+on:
+  push:
+    branches: [ main ]
+    paths: [ 'README.md' ]
+  pull_request:
+    branches: [ main ]
+    paths: [ 'README.md' ]
+  schedule:
+    # Run weekly on Sundays at 2 AM UTC
+    - cron: '0 2 * * 0'
+  workflow_dispatch:
+
+jobs:
+  link-check:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: Install markdown-link-check
+      run: npm install -g markdown-link-check
+      
+    - name: Create link check configuration
+      run: |
+        cat > .markdown-link-check.json << 'EOF'
+        {
+          "ignorePatterns": [
+            {
+              "pattern": "^http://localhost"
+            },
+            {
+              "pattern": "^https://localhost"
+            }
+          ],
+          "replacementPatterns": [
+            {
+              "pattern": "^/",
+              "replacement": "https://github.com/codecrafters-io/build-your-own-x/blob/main/"
+            }
+          ],
+          "httpHeaders": [
+            {
+              "urls": ["https://github.com", "https://www.github.com"],
+              "headers": {
+                "Accept-Encoding": "zstd, br, gzip, deflate"
+              }
+            }
+          ],
+          "timeout": "20s",
+          "retryOn429": true,
+          "retryCount": 3,
+          "fallbackRetryDelay": "30s",
+          "aliveStatusCodes": [200, 206]
+        }
+        EOF
+        
+    - name: Check links in README.md
+      run: |
+        echo "🔍 Checking links in README.md..."
+        markdown-link-check README.md --config .markdown-link-check.json --verbose || {
+          echo "❌ Some links are broken. Creating issue report..."
+          exit 1
+        }
+        echo "✅ All links are working correctly!"
+        
+    - name: Check links in CONTRIBUTING.md
+      run: |
+        echo "🔍 Checking links in CONTRIBUTING.md..."
+        markdown-link-check CONTRIBUTING.md --config .markdown-link-check.json --verbose || {
+          echo "⚠️ Some links in CONTRIBUTING.md may be broken"
+        }
+        
+    - name: Check links in SETUP.md
+      run: |
+        echo "🔍 Checking links in SETUP.md..."
+        markdown-link-check SETUP.md --config .markdown-link-check.json --verbose || {
+          echo "⚠️ Some links in SETUP.md may be broken"
+        }
+        
+  markdown-lint:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: Install markdownlint
+      run: npm install -g markdownlint-cli
+      
+    - name: Create markdownlint configuration
+      run: |
+        cat > .markdownlint.json << 'EOF'
+        {
+          "MD013": false,
+          "MD033": false,
+          "MD041": false,
+          "MD034": false
+        }
+        EOF
+        
+    - name: Lint markdown files
+      run: |
+        echo "📝 Linting markdown files..."
+        markdownlint README.md CONTRIBUTING.md SETUP.md CODE_OF_CONDUCT.md || {
+          echo "⚠️ Markdown linting issues found. Please review."
+          exit 1
+        }
+        echo "✅ Markdown files are properly formatted!"
+
+  validate-structure:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Validate README structure
+      run: |
+        echo "🏗️ Validating README.md structure..."
+        
+        # Check for required sections
+        if ! grep -q "## Tutorials" README.md; then
+          echo "❌ Missing 'Tutorials' section in README.md"
+          exit 1
+        fi
+        
+        if ! grep -q "## Contribute" README.md; then
+          echo "❌ Missing 'Contribute' section in README.md"
+          exit 1
+        fi
+        
+        # Check for table of contents links
+        if ! grep -q "\* \[.*\](#.*)" README.md; then
+          echo "❌ Table of contents appears to be missing or malformed"
+          exit 1
+        fi
+        
+        # Validate tutorial format
+        if ! grep -qE "\* \[\*\*[^*]+\*\*: _[^_]+_\]\([^)]+\)" README.md; then
+          echo "❌ Tutorial format appears inconsistent"
+          exit 1
+        fi
+        
+        echo "✅ README.md structure is valid!"
+        
+    - name: Count tutorials by category
+      run: |
+        echo "📊 Tutorial statistics:"
+        echo "Total tutorials: $(grep -c '\*\*.*\*\*: _.*_' README.md)"
+        echo ""
+        echo "By category:"
+        grep "^#### Build your own" README.md | sed 's/.*`\(.*\)`/\1/' | while read category; do
+          count=$(awk "/#### Build your own \`$category\`/,/^#### / { if (/\*\*.*\*\*: _.*_/) count++ } END { print count+0 }" README.md)
+          echo "  $category: $count tutorials"
+        done
+        
+  repository-health:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Check required files
+      run: |
+        echo "📋 Checking repository health..."
+        
+        required_files=(
+          "README.md"
+          "CONTRIBUTING.md" 
+          "CODE_OF_CONDUCT.md"
+          "SETUP.md"
+          ".github/PULL_REQUEST_TEMPLATE.md"
+          ".github/ISSUE_TEMPLATE/tutorial-submission.yml"
+          ".github/ISSUE_TEMPLATE/broken-link.yml"
+          ".github/ISSUE_TEMPLATE/feature-request.yml"
+          ".github/ISSUE_TEMPLATE/question.yml"
+        )
+        
+        for file in "${required_files[@]}"; do
+          if [[ -f "$file" ]]; then
+            echo "✅ $file exists"
+          else
+            echo "❌ $file is missing"
+            exit 1
+          fi
+        done
+        
+        echo "✅ All required files are present!"

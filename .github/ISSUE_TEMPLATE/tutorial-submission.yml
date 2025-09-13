@@ -1,0 +1,168 @@
+name: 🚀 Submit New Tutorial
+description: Submit a new programming tutorial for the repository
+title: "[TUTORIAL] Add [Language]: [Tutorial Name]"
+labels: ["tutorial-submission", "needs-review"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for contributing to Build Your Own X! 🎉
+        
+        Please ensure your tutorial meets our [quality standards](https://github.com/codecrafters-io/build-your-own-x/blob/main/CONTRIBUTING.md#quality-standards) before submitting.
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: Which category does this tutorial belong to?
+      options:
+        - 3D Renderer
+        - Augmented Reality
+        - BitTorrent Client
+        - Blockchain / Cryptocurrency
+        - Bot
+        - Command-Line Tool
+        - Database
+        - Docker
+        - Emulator / Virtual Machine
+        - Front-end Framework / Library
+        - Game
+        - Git
+        - Network Stack
+        - Neural Network
+        - Operating System
+        - Physics Engine
+        - Programming Language
+        - Regex Engine
+        - Search Engine
+        - Shell
+        - Template Engine
+        - Text Editor
+        - Visual Recognition System
+        - Voxel Engine
+        - Web Browser
+        - Web Server
+        - Uncategorized
+        - New Category (explain in description)
+    validations:
+      required: true
+
+  - type: input
+    id: language
+    attributes:
+      label: Programming Language
+      description: What programming language is used in this tutorial?
+      placeholder: "e.g., Python, JavaScript, C++, Rust"
+    validations:
+      required: true
+
+  - type: input
+    id: title
+    attributes:
+      label: Tutorial Title
+      description: The original title of the tutorial/article
+      placeholder: "e.g., Build Your Own Redis from Scratch"
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: Tutorial URL
+      description: Direct link to the tutorial
+      placeholder: "https://..."
+    validations:
+      required: true
+
+  - type: input
+    id: author
+    attributes:
+      label: Original Author
+      description: Name of the tutorial's original author(s)
+      placeholder: "e.g., John Smith"
+
+  - type: dropdown
+    id: format
+    attributes:
+      label: Tutorial Format
+      description: What format is the tutorial in?
+      options:
+        - Written article/blog post
+        - Video tutorial
+        - Interactive tutorial
+        - GitHub repository with guide
+        - Book/PDF
+        - Multiple parts series
+    validations:
+      required: true
+
+  - type: dropdown
+    id: difficulty
+    attributes:
+      label: Difficulty Level
+      description: What skill level is required for this tutorial?
+      options:
+        - Beginner (0-2 years experience)
+        - Intermediate (2-5 years experience)
+        - Advanced (5+ years experience)
+        - Expert (requires deep systems knowledge)
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Why is this tutorial valuable? What makes it unique or particularly well-done?
+      placeholder: "This tutorial stands out because..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: prerequisites
+    attributes:
+      label: Prerequisites
+      description: What knowledge/tools are needed before starting this tutorial?
+      placeholder: "e.g., Basic Python knowledge, familiarity with networking concepts"
+
+  - type: checkboxes
+    id: quality-check
+    attributes:
+      label: Quality Checklist
+      description: Please verify that this tutorial meets our standards
+      options:
+        - label: The tutorial builds something substantial from scratch
+          required: true
+        - label: The tutorial includes working, tested code examples
+          required: true
+        - label: The tutorial explains concepts clearly with step-by-step guidance
+          required: true
+        - label: The tutorial is complete and leads to a functional result
+          required: true
+        - label: I have tested the tutorial and confirmed it works
+          required: true
+        - label: The tutorial is original content (not just gluing libraries together)
+          required: true
+        - label: I have checked that this tutorial is not already in the repository
+          required: true
+
+  - type: checkboxes
+    id: contribution-agreement
+    attributes:
+      label: Contribution Agreement
+      options:
+        - label: I understand this tutorial will be added to a public repository under CC0 license
+          required: true
+        - label: I have permission to share this tutorial link
+          required: true
+        - label: I agree to the [Code of Conduct](https://github.com/codecrafters-io/build-your-own-x/blob/main/CODE_OF_CONDUCT.md)
+          required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ### What happens next?
+        
+        1. **Community Review**: Other contributors will review and provide feedback
+        2. **Maintainer Review**: Project maintainers will assess the tutorial's fit and quality
+        3. **Integration**: If approved, the tutorial will be added to the appropriate category
+        
+        Thank you for contributing to the learning community! 🚀

@@ -1,0 +1,102 @@
+name: 🐛 Report Broken Link
+description: Report a tutorial link that is broken or no longer accessible
+title: "[BROKEN LINK] Category: Tutorial Name"
+labels: ["broken-link", "maintenance"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Help us maintain the quality of our tutorial collection by reporting broken or inaccessible links.
+
+  - type: input
+    id: tutorial-link
+    attributes:
+      label: Broken Tutorial Link
+      description: The full URL that is not working
+      placeholder: "https://..."
+    validations:
+      required: true
+
+  - type: input
+    id: tutorial-title
+    attributes:
+      label: Tutorial Title
+      description: The title of the tutorial as shown in README.md
+      placeholder: "e.g., Build Your Own Redis from Scratch"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: Which category is this tutorial in?
+      options:
+        - 3D Renderer
+        - Augmented Reality
+        - BitTorrent Client
+        - Blockchain / Cryptocurrency
+        - Bot
+        - Command-Line Tool
+        - Database
+        - Docker
+        - Emulator / Virtual Machine
+        - Front-end Framework / Library
+        - Game
+        - Git
+        - Network Stack
+        - Neural Network
+        - Operating System
+        - Physics Engine
+        - Programming Language
+        - Regex Engine
+        - Search Engine
+        - Shell
+        - Template Engine
+        - Text Editor
+        - Visual Recognition System
+        - Voxel Engine
+        - Web Browser
+        - Web Server
+        - Uncategorized
+    validations:
+      required: true
+
+  - type: dropdown
+    id: issue-type
+    attributes:
+      label: Type of Issue
+      description: What kind of problem is occurring?
+      options:
+        - Link returns 404 (page not found)
+        - Link redirects to unrelated content
+        - Website is completely down
+        - Requires login/paywall to access
+        - Content has been significantly changed
+        - Other (explain in details)
+    validations:
+      required: true
+
+  - type: textarea
+    id: replacement-suggestion
+    attributes:
+      label: Replacement Suggestion (Optional)
+      description: Do you know of an alternative tutorial or archived version?
+      placeholder: "Alternative URL or suggestion..."
+
+  - type: textarea
+    id: additional-details
+    attributes:
+      label: Additional Details
+      description: Any other relevant information about the issue
+      placeholder: "Additional context about the broken link..."
+
+  - type: checkboxes
+    id: verification
+    attributes:
+      label: Verification
+      options:
+        - label: I have verified this link is actually broken (not a temporary network issue)
+          required: true
+        - label: I have checked that this hasn't already been reported in open issues
+          required: true

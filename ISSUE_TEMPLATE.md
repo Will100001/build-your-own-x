@@ -1,18 +1,35 @@
 <!--
-Thanks for your contribution! If you're submitting a tutorial, please ensure it includes a guided path for learners, either through a step-by-step article or by breaking down code into digestible parts that are easy to follow. Please submit only programming tutorials that build something interesting from scratch; no frameworks, libraries, guides for frameworks/libraries or tutorials that glue just other libraries together. 
+Thanks for your contribution! 🎉
+
+We've moved to structured issue templates for better organization. Please use one of these specific templates instead:
+
+🚀 **Submit New Tutorial**: https://github.com/codecrafters-io/build-your-own-x/issues/new?template=tutorial-submission.yml
+🐛 **Report Broken Link**: https://github.com/codecrafters-io/build-your-own-x/issues/new?template=broken-link.yml  
+💡 **Feature Request**: https://github.com/codecrafters-io/build-your-own-x/issues/new?template=feature-request.yml
+❓ **Ask Question**: https://github.com/codecrafters-io/build-your-own-x/issues/new?template=question.yml
+
+For tutorial submissions, please ensure they meet our quality standards:
+- Builds something substantial from scratch (not just using existing libraries)
+- Includes step-by-step guidance with clear explanations
+- Contains working, tested code examples
+- Is complete and leads to a functional result
+
+Read our Contributing Guidelines: https://github.com/codecrafters-io/build-your-own-x/blob/main/CONTRIBUTING.md
 -->
 
-### Main programming language
-<!-- max. 1 -->
+### Quick Tutorial Submission (Legacy Template)
 
-### Tutorial title
-<!-- the original title from the article, repository, ... -->
+If you prefer to use this legacy format, please provide:
 
-### Tutorial URL
+**Programming Language**: <!-- max. 1 -->
 
-### Category
+**Tutorial Title**: <!-- the original title from the article, repository, etc. -->
+
+**Tutorial URL**: 
+
+**Category**:
 * [ ] 3D Renderer
-* [ ] Augmented Reality
+* [ ] Augmented Reality  
 * [ ] BitTorrent Client
 * [ ] Blockchain / Cryptocurrency
 * [ ] Bot
@@ -32,8 +49,17 @@ Thanks for your contribution! If you're submitting a tutorial, please ensure it 
 * [ ] Search Engine
 * [ ] Shell
 * [ ] Template Engine
+* [ ] Text Editor
 * [ ] Visual Recognition System
 * [ ] Voxel Engine
-* [ ] Web Search Engine
+* [ ] Web Browser
 * [ ] Web Server
 * [ ] Uncategorized
+
+**Quality Verification**:
+* [ ] Tutorial builds something substantial from scratch
+* [ ] Tutorial includes working, tested code examples
+* [ ] Tutorial provides step-by-step guidance with clear explanations
+* [ ] Tutorial is complete and leads to a functional result
+* [ ] I have tested the tutorial and confirmed it works
+* [ ] No duplicate content already exists in the repository

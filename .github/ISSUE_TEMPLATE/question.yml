@@ -1,0 +1,57 @@
+name: ❓ Question
+description: Ask a question about the repository or tutorials
+title: "[QUESTION] "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have a question about the repository, contributing, or the tutorials? We're here to help!
+
+  - type: dropdown
+    id: question-type
+    attributes:
+      label: Question Type
+      description: What is your question about?
+      options:
+        - How to contribute
+        - Tutorial recommendation
+        - Technical help with a tutorial
+        - Repository organization
+        - Licensing/usage
+        - General programming advice
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your Question
+      description: What would you like to know?
+      placeholder: "I'm wondering about..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Any additional context that might help us answer your question?
+      placeholder: "I'm trying to learn... My background is..."
+
+  - type: input
+    id: specific-tutorial
+    attributes:
+      label: Specific Tutorial (if applicable)
+      description: If your question is about a specific tutorial, please provide the link or title
+      placeholder: "Tutorial name or URL"
+
+  - type: checkboxes
+    id: research
+    attributes:
+      label: Research Done
+      options:
+        - label: I have read the README.md file
+        - label: I have checked existing issues for similar questions
+        - label: I have read the contributing guidelines (if relevant)

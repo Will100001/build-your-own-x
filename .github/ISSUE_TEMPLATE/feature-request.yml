@@ -1,0 +1,67 @@
+name: 💡 Feature Request
+description: Suggest an improvement for the repository
+title: "[FEATURE] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to suggest an improvement! 
+
+  - type: dropdown
+    id: feature-type
+    attributes:
+      label: Feature Type
+      description: What type of improvement are you suggesting?
+      options:
+        - New tutorial category
+        - Repository organization/structure
+        - Documentation improvement
+        - Automation/tooling
+        - Website/presentation
+        - Quality standards
+        - Community features
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Description
+      description: What problem does this feature solve? What gap does it fill?
+      placeholder: "Currently, it's difficult to..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: Describe your idea for solving this problem
+      placeholder: "I suggest we..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternative Solutions
+      description: Have you considered any alternative approaches?
+      placeholder: "Other approaches could be..."
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other context, examples, or references that would help?
+      placeholder: "For example, other repositories handle this by..."
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      options:
+        - label: I would be willing to help implement this feature
+        - label: I would be willing to help with documentation
+        - label: I would be willing to help with testing
