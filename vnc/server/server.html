@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VNC Server</title>
+    <link rel="stylesheet" href="../shared/vnc-styles.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        
+        .app-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .title-bar {
+            background: #343a40;
+            color: white;
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            -webkit-app-region: drag;
+        }
+        
+        .title-bar h1 {
+            font-size: 16px;
+            margin: 0;
+        }
+        
+        .server-info {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        .window-controls {
+            display: flex;
+            gap: 8px;
+            -webkit-app-region: no-drag;
+        }
+        
+        .window-controls button {
+            width: 24px;
+            height: 24px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .minimize-btn {
+            background: #ffc107;
+        }
+        
+        .close-btn {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .content {
+            flex: 1;
+            overflow: auto;
+        }
+        
+        .vnc-server {
+            margin: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .server-logs {
+            flex: 1;
+        }
+        
+        .quick-actions {
+            background: #f8f9fa;
+            padding: 16px;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="title-bar">
+            <h1>VNC Server</h1>
+            <div class="server-info">
+                <span id="server-status-title">Stopped</span>
+            </div>
+            <div class="window-controls">
+                <button class="minimize-btn" onclick="minimizeWindow()" title="Minimize to tray">−</button>
+                <button class="close-btn" onclick="closeWindow()">×</button>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="quick-actions">
+                <button id="quick-start-btn" class="primary">Quick Start</button>
+                <button id="quick-stop-btn" class="secondary" disabled>Stop Server</button>
+                <span>|</span>
+                <button id="open-firewall-btn">Configure Firewall</button>
+                <button id="share-info-btn" disabled>Share Connection Info</button>
+            </div>
+            
+            <div id="vnc-server-app"></div>
+        </div>
+    </div>
+
+    <script src="../shared/vnc-protocol.js"></script>
+    <script src="../shared/vnc-gui.js"></script>
+    <script src="server.js"></script>
+</body>
+</html>

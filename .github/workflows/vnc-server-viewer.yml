@@ -3,7 +3,12 @@ name: VNC Server and Viewer
 on:
   push:
     branches:
+      - main
       - vnc-monitoring-integration
+      - 'copilot/**'
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build:
@@ -12,25 +17,60 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: vnc/*/package.json
+
+      - name: Make build scripts executable
+        run: chmod +x vnc/build.sh
+
+      - name: Install dependencies for VNC Viewer
+        run: |
+          cd vnc/viewer
+          npm install
+
+      - name: Install dependencies for VNC Server
+        run: |
+          cd vnc/server
+          npm install
+
       - name: Build VNC Server for Windows
         run: |
-          echo "Building VNC Server for Windows"
-          # Placeholder for Windows build command
+          cd vnc/server
+          npm run build-win
 
       - name: Build VNC Viewer for Windows
         run: |
-          echo "Building VNC Viewer for Windows"
-          # Placeholder for Windows viewer build command
+          cd vnc/viewer
+          npm run build-win
 
       - name: Build VNC Server for Android
         run: |
-          echo "Building VNC Server for Android"
-          # Placeholder for Android build command
+          cd vnc/server
+          npm run build-android
 
       - name: Build VNC Viewer for Android
         run: |
-          echo "Building VNC Viewer for Android"
-          # Placeholder for Android viewer build command
+          cd vnc/viewer
+          npm run build-android
+
+      - name: Create demo files
+        run: |
+          cd vnc
+          ./build.sh all
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: vnc-builds
+          path: |
+            vnc/viewer/dist/
+            vnc/server/dist/
+            vnc/android/
+            vnc/demo-*.html
 
   test:
     runs-on: ubuntu-latest
@@ -38,28 +78,111 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Test VNC Server
-        run: |
-          echo "Testing VNC Server"
-          # Placeholder for testing command
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
 
-      - name: Test VNC Viewer
+      - name: Test VNC Protocol
         run: |
-          echo "Testing VNC Viewer"
-          # Placeholder for testing command
+          cd vnc
+          echo "Testing VNC Protocol..."
+          node -e "
+            const VNCProtocol = require('./shared/vnc-protocol.js');
+            const protocol = new VNCProtocol();
+            console.log('✓ VNC Protocol loaded successfully');
+            console.log('✓ Protocol version:', VNCProtocol.PROTOCOL_VERSION);
+            
+            // Test basic functionality
+            protocol.on('connecting', () => console.log('✓ Event system working'));
+            protocol.emit('connecting', {});
+            
+            console.log('✓ All basic tests passed');
+          "
+
+      - name: Test GUI Components
+        run: |
+          cd vnc
+          echo "Testing GUI Components..."
+          node -e "
+            // Test in Node.js environment
+            global.document = {
+              getElementById: () => ({ innerHTML: '', addEventListener: () => {} }),
+              createElement: () => ({ style: {}, addEventListener: () => {} }),
+              addEventListener: () => {}
+            };
+            global.window = { addEventListener: () => {} };
+            
+            const { VNCViewer, VNCServer } = require('./shared/vnc-gui.js');
+            console.log('✓ GUI components loaded successfully');
+            console.log('✓ VNCViewer class available');
+            console.log('✓ VNCServer class available');
+          "
+
+      - name: Validate Build Scripts
+        run: |
+          cd vnc
+          echo "Validating build scripts..."
+          bash -n build.sh
+          echo "✓ Bash build script syntax is valid"
+          
+          # Test that required files exist
+          test -f shared/vnc-protocol.js && echo "✓ VNC Protocol file exists"
+          test -f shared/vnc-gui.js && echo "✓ VNC GUI file exists"
+          test -f shared/vnc-styles.css && echo "✓ VNC Styles file exists"
+          test -f viewer/package.json && echo "✓ Viewer package.json exists"
+          test -f server/package.json && echo "✓ Server package.json exists"
 
   deploy:
     runs-on: ubuntu-latest
+    needs: [build, test]
+    if: github.ref == 'refs/heads/main'
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Deploy VNC Server
-        run: |
-          echo "Deploying VNC Server"
-          # Placeholder for deployment command
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: vnc-builds
+          path: ./builds
 
-      - name: Deploy VNC Viewer
-        run: |
-          echo "Deploying VNC Viewer"
-          # Placeholder for deployment command
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./vnc
+          destination_dir: vnc-demo
+
+      - name: Create Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: VNC Server and Viewer ${{ github.ref }}
+          body: |
+            ## VNC Server and Viewer Release
+            
+            This release includes:
+            - VNC Viewer for Windows (Electron-based)
+            - VNC Server for Windows (Electron-based)
+            - VNC Viewer for Android (WebView-based)
+            - VNC Server for Android (WebView-based)
+            - Web-based demos for both viewer and server
+            
+            ### Features:
+            - Cross-platform GUI applications
+            - User-friendly interface with intuitive controls
+            - Connection management and session monitoring
+            - Support for both Windows and Android platforms
+            - Real-time remote desktop access
+            - Secure connection handling
+            
+            ### Installation:
+            - **Windows**: Download and run the installer from the assets
+            - **Android**: Import the Android project in Android Studio
+            - **Web Demo**: Open the demo HTML files in a web browser
+          draft: false
+          prerelease: false

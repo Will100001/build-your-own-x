@@ -1,0 +1,444 @@
+/* VNC GUI Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Common Button Styles */
+button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+button.primary {
+    background: #007bff;
+    color: white;
+}
+
+button.primary:hover:not(:disabled) {
+    background: #0056b3;
+}
+
+button.secondary {
+    background: #6c757d;
+    color: white;
+}
+
+button.secondary:hover:not(:disabled) {
+    background: #545b62;
+}
+
+button.disconnect-btn {
+    background: #dc3545;
+    color: white;
+    padding: 4px 8px;
+    font-size: 12px;
+}
+
+button.disconnect-btn:hover {
+    background: #c82333;
+}
+
+/* Input Styles */
+input[type="text"],
+input[type="number"],
+input[type="password"] {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 200px;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* VNC Viewer Styles */
+.vnc-viewer {
+    max-width: 1200px;
+    margin: 20px auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.toolbar {
+    background: #f8f9fa;
+    padding: 16px;
+    border-bottom: 1px solid #dee2e6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.connection-panel {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.status-panel {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+#status {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+#status.connecting {
+    background: #fff3cd;
+    color: #856404;
+}
+
+#status.connected {
+    background: #d4edda;
+    color: #155724;
+}
+
+#status.error {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.viewer-controls {
+    padding: 12px 16px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.canvas-container {
+    position: relative;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+}
+
+#vnc-canvas {
+    border: 1px solid #ddd;
+    cursor: crosshair;
+    max-width: 100%;
+    max-height: 70vh;
+}
+
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 16px;
+}
+
+.loading-overlay.hidden {
+    display: none;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 16px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.info-panel {
+    padding: 12px 16px;
+    background: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+}
+
+.stats {
+    display: flex;
+    gap: 24px;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+/* VNC Server Styles */
+.vnc-server {
+    max-width: 800px;
+    margin: 20px auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.server-header {
+    background: #343a40;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.server-header h2 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.server-controls {
+    display: flex;
+    gap: 12px;
+}
+
+.server-config {
+    padding: 20px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.config-row {
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.config-row label {
+    min-width: 100px;
+    font-weight: 500;
+}
+
+.server-status {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.status-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 6px;
+}
+
+.status-item .label {
+    font-weight: 500;
+    color: #6c757d;
+}
+
+.status.running {
+    color: #28a745;
+    font-weight: 600;
+}
+
+.status.stopped {
+    color: #dc3545;
+    font-weight: 600;
+}
+
+.connections-panel {
+    padding: 20px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.connections-panel h3 {
+    margin-bottom: 16px;
+    color: #343a40;
+}
+
+.connections-list {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.no-connections {
+    text-align: center;
+    color: #6c757d;
+    font-style: italic;
+    padding: 20px;
+}
+
+.connection-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    background: #f8f9fa;
+}
+
+.connection-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.connection-info span {
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.view-only {
+    background: #ffc107;
+    color: #856404;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.server-logs {
+    padding: 20px;
+}
+
+.server-logs h3 {
+    margin-bottom: 16px;
+    color: #343a40;
+}
+
+.log-output {
+    background: #2d3748;
+    color: #e2e8f0;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 13px;
+    padding: 16px;
+    border-radius: 6px;
+    height: 200px;
+    overflow-y: auto;
+    margin-bottom: 12px;
+}
+
+.log-entry {
+    margin-bottom: 4px;
+    line-height: 1.4;
+}
+
+.timestamp {
+    color: #a0aec0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .vnc-viewer,
+    .vnc-server {
+        margin: 10px;
+        border-radius: 0;
+    }
+    
+    .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .connection-panel,
+    .viewer-controls {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .connection-panel input {
+        width: 100%;
+    }
+    
+    .server-header {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
+    
+    .server-status {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+/* Dark Theme */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: #1a1a1a;
+        color: #e1e1e1;
+    }
+    
+    .vnc-viewer,
+    .vnc-server {
+        background: #2d2d2d;
+    }
+    
+    .toolbar,
+    .viewer-controls,
+    .server-config {
+        background: #3a3a3a;
+        border-color: #555;
+    }
+    
+    input[type="text"],
+    input[type="number"],
+    input[type="password"] {
+        background: #3a3a3a;
+        border-color: #555;
+        color: #e1e1e1;
+    }
+    
+    .status-item,
+    .connection-item {
+        background: #3a3a3a;
+        border-color: #555;
+    }
+    
+    .info-panel {
+        background: #3a3a3a;
+        border-color: #555;
+    }
+}

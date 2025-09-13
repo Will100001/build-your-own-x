@@ -1,0 +1,42 @@
+{
+  "name": "vnc-server",
+  "version": "1.0.0",
+  "description": "VNC Server with GUI for Windows and Android",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "build-win": "electron-builder --win",
+    "build-android": "npm run build-android-webview",
+    "build-android-webview": "node build-android.js",
+    "dev": "electron . --dev"
+  },
+  "keywords": ["vnc", "server", "remote", "desktop"],
+  "author": "VNC Project",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^26.0.0",
+    "electron-builder": "^24.0.0"
+  },
+  "build": {
+    "appId": "com.vncproject.server",
+    "productName": "VNC Server",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "server.html",
+      "server.js",
+      "../shared/**/*"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}
