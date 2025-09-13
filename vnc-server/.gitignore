@@ -1,0 +1,46 @@
+# VNC Server - Ignore files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.log
+*.tmp
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Recording output files
+screen_recording_*.mp4
+screen_recording_*.avi
+screen_recording_*.log
+demo_recording_*.log
+combined_example.log
+example_recording.log
+*_recording_*.log
+
+# Test output
+test_recording.log
