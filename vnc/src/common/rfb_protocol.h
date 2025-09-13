@@ -132,6 +132,9 @@ public:
 protected:
     virtual bool isServer() const = 0;
     
+    // Protected members for derived classes
+    std::vector<uint8_t> outgoingBuffer_;
+    
 private:
     // Protocol Handlers
     bool handleHandshake(const uint8_t* data, size_t length);
@@ -159,7 +162,6 @@ private:
     // State
     ProtocolState state_;
     std::vector<uint8_t> incomingBuffer_;
-    std::vector<uint8_t> outgoingBuffer_;
     
     // Framebuffer
     uint16_t fbWidth_;

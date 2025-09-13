@@ -2,8 +2,10 @@
 #include <cstring>
 #include <arpa/inet.h>
 #include <algorithm>
-#include <openssl/des.h>
 #include <random>
+#ifdef ENABLE_TLS
+#include <openssl/des.h>
+#endif
 
 namespace vnc {
 
@@ -420,7 +422,13 @@ bool RFBProtocol::handleClientCutText(const uint8_t* data, size_t length) {
 
 bool RFBProtocol::verifyPassword(const std::vector<uint8_t>& challenge, const std::vector<uint8_t>& response) {
     // Simplified password verification - in real implementation use proper DES encryption
+#ifdef ENABLE_TLS
+    // TODO: Implement proper DES encryption verification
     return !password_.empty();
+#else
+    // Without TLS, just check if password is set
+    return !password_.empty();
+#endif
 }
 
 void RFBProtocol::sendFramebufferUpdate(const std::vector<Rectangle>& rectangles, const std::vector<uint8_t>& pixelData) {
