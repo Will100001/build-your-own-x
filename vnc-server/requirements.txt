@@ -1,0 +1,6 @@
+opencv-python
+Pillow
+pyautogui
+zeroconf
+psutil
+numpy
