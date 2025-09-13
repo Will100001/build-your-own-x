@@ -31,6 +31,7 @@ It's a great way to learn.
 * [Template Engine](#build-your-own-template-engine)
 * [Text Editor](#build-your-own-text-editor)
 * [Visual Recognition System](#build-your-own-visual-recognition-system)
+* [VNC Monitoring System](#build-your-own-vnc-monitoring-system)
 * [Voxel Engine](#build-your-own-voxel-engine)
 * [Web Browser](#build-your-own-web-browser)
 * [Web Server](#build-your-own-web-server)
@@ -383,6 +384,11 @@ It's a great way to learn.
 
 * [**Python**: _Developing a License Plate Recognition System with Machine Learning in Python_](https://medium.com/devcenter/developing-a-license-plate-recognition-system-with-machine-learning-in-python-787833569ccd)
 * [**Python**: _Building a Facial Recognition Pipeline with Deep Learning in Tensorflow_](https://hackernoon.com/building-a-facial-recognition-pipeline-with-deep-learning-in-tensorflow-66e7645015b8)
+
+#### Build your own `VNC Monitoring System`
+
+* [**Python**: _VNC Server Monitoring Agent with Auto-restart_](vnc-monitoring/)
+* [**Python + Systemd**: _Real-time VNC Server Monitoring and Management_](vnc-monitoring/README.md)
 
 #### Build your own `Voxel Engine`
 
